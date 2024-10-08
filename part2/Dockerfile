@@ -10,8 +10,10 @@ COPY settings.gradle.kts gradlew build.gradle.kts ./
 COPY src ./src
 COPY gradle ./gradle
 
+# Ensure gradlew has execute permissions
 RUN chmod +x ./gradlew
 
+# Convert line endings to Unix-style (LF)
 RUN sed -i 's/\r$//' ./gradlew
 
 # compile with gradle
