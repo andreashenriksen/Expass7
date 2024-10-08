@@ -5,7 +5,6 @@ import com.example.demo.models.Poll;
 import com.example.demo.models.User;
 import com.example.demo.models.Vote;
 import com.example.demo.models.VoteOption;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

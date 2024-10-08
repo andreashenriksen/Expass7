@@ -5,7 +5,6 @@ import com.example.demo.models.User;
 import com.example.demo.models.Vote;
 import com.example.demo.models.VoteOption;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,6 +41,7 @@ public class PollManager {
         return null;
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     public boolean deleteUser(Integer userId) {
         return userMap.remove(userId) != null;
     }
