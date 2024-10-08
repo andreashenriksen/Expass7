@@ -1,0 +1,100 @@
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "username": "User1",
+  "email": "User1@UserEmail.com"
+}
+
+> {%
+    client.test("User creation should be successful", function() {
+        client.assert(response.body != null, "User should be created");
+        client.assert(response.body["username"] == "User1", "Username should be \"User1\"");
+        client.assert(response.body["email"] == "User1@UserEmail.com", "User should have the correct email");
+    });
+%}
+
+###
+
+GET http://localhost:8080/users
+Accept: application/json
+
+###
+
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "username": "User2",
+  "email": "User2@UserEmail.com"
+}
+
+###
+
+GET http://localhost:8080/users
+Accept: application/json
+
+###
+
+POST http://localhost:8080/polls
+Content-Type: application/json
+
+{
+  "id": "1",
+  "username": "User1",
+  "question": "Pineapple on pizza?",
+  "options": "yes,no"
+
+}
+
+> {%
+    client.test("Poll creation should be successful", function() {
+        client.assert(response.body != null, "Poll should be created");
+        client.assert(response.body["user"]["id"] == 1, "User id should be 1");
+        client.assert(response.body["question"] == "Pineapple on pizza?", "Question should be \"Pineapple on pizza?\"");
+        client.assert(Object.keys(response.body["voteOptions"]).length == 2, "Should have two vote options, \"yes\" or \"no\".");
+    });
+%}
+
+###
+
+GET http://localhost:8080/polls
+Accept: application/json
+
+###
+
+POST http://localhost:8080/polls/1/vote
+Content-Type: application/json
+
+{
+  "username": "User2",
+  "pollId": 1,
+  "option": "yes"
+}
+
+> {%
+    client.test("Vote creation should be successful", function() {
+        client.assert(response.body["voteOption"]["id"] == 1, "Vote option should be 1");
+    });
+%}
+
+###
+
+PUT http://localhost:8080/polls/1/vote/1
+Content-Type: application/json
+
+{
+  "username": "User2",
+  "pollId": 1,
+  "option": "no"
+}
+
+> {%
+    client.test("Vote update should be successful", function() {
+        client.assert(response.body["voteOption"]["id"] == 2, "Vote option should be updated to 2");
+    });
+%}
+
+###
+
+DELETE http://localhost:8080/polls/1
