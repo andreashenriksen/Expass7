@@ -22,6 +22,10 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
 
+            <property name="jakarta.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+            <property name="jakarta.persistence.schema-generation.scripts.create-target" value="schema.up.sql"/>
+            <property name="jakarta.persistence.schema-generation.scripts.drop-target" value="schema.down.sql"/>
+
         </properties>
     </persistence-unit>
 </persistence>
